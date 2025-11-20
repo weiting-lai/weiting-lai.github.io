@@ -464,7 +464,7 @@
                                 <img src={post.image} alt="Post content" className="w-full h-auto" />
                             </div>
                         )}
-                        <div className="flex gap-6 text-gray-400 text-sm">
+                        <div className="flex items-center gap-6 text-gray-400 text-sm">
                             <button className="hover:text-red-500 transition-colors flex items-center gap-1 group">
                                 <i className="fa-regular fa-heart group-hover:animate-bounce"></i> {post.likes}
                             </button>
@@ -474,6 +474,12 @@
                             <button className="hover:text-green-500 transition-colors">
                                 <i className="fa-solid fa-retweet"></i>
                             </button>
+
+                            {post.link && (
+                                <a href={post.link} target="_blank" className="ml-auto text-ghibli-night hover:text-ghibli-magic font-bold transition-colors flex items-center gap-1">
+                                    Read Paper <i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                                </a>
+                            )}
                         </div>
                     </div>
                 </div>
