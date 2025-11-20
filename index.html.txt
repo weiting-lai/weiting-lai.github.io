@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wei-Ting Lai | PhD Candidate & Researcher</title>
+    <meta name="description" content="Academic portfolio of Wei-Ting Lai, PhD candidate specializing in 3D Audio and Acoustic Signal Processing.">
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Nunito:wght@300;400;600;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ghibli: {
+                            sky: '#A0C3D2',
+                            cloud: '#F7F9F9',
+                            grass: '#E8F3D6',
+                            forest: '#4F6F52',
+                            night: '#2D4059',
+                            magic: '#EA5455', // Accent red for "Spirited Away" vibe
+                            paper: '#FDFBF7'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif JP"', 'serif'], // Japanese aesthetic serif
+                        sans: ['"Nunito"', 'sans-serif'],
+                        display: ['"Cinzel"', 'serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'wave': 'wave 20s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #2D4059;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        .audio-wave {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDFBF7; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #A0C3D2; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4F6F52; 
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        /*************************************************************
+         * EASY UPDATE SECTION (在此處更新您的資料)
+         *************************************************************/
+        const DATA = {
+            profile: {
+                name: "Wei-Ting Lai",
+                title: "PhD Candidate in Audio & Acoustic Signal Processing",
+                university: "The Australian National University (ANU)",
+                email: "wei-ting.lai@anu.edu.au",
+                location: "Canberra, Australia",
+                // Replace with your actual image filename after uploading to GitHub (e.g., "images/profile.jpg")
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=WeiTing&backgroundColor=A0C3D2&clothing=blazerAndShirt", 
+                bio: "I am a PhD candidate at the Audio and Acoustic Signal Processing Group, ANU, supervised by Prof. Thushara Abhayapala and Dr. Prasanga Samarasinghe. My research focuses on 3D audio, spatial sound field analysis, and source localization in reverberant environments. I blend signal processing rigor with a passion for immersive audio experiences, aiming to bridge the gap between physical acoustics and perceptual reality.",
+                interests: ["3D Audio", "Source Localization", "Sound Field Reconstruction", "Room Acoustics", "Signal Processing"],
+                links: {
+                    github: "https://github.com/weiting-lai", // Update with your actual GitHub
+                    linkedin: "https://linkedin.com/in/weiting-lai", // Update with actual LinkedIn
+                    scholar: "https://scholar.google.com", // Update with actual Google Scholar
+                    cv: "assets/CV_Weiting_Lai.pdf" // Make sure to create an 'assets' folder
+                }
+            },
+            // Publications from your CV
+            publications: [
+                {
+                    id: 1,
+                    title: "Sound Source Localization using Multi-Dictionary Orthogonal Matching Pursuit in Reverberant Environments",
+                    authors: "Wei-Ting Lai, Lachlan Birnie, Thushara Abhayapala, Amy Bastine, Prasanga Samarasinghe",
+                    venue: "IEEE/ACM Trans. Audio, Speech, Lang. Process., 2025",
+                    status: "Published",
+                    links: { pdf: "assets/T_ASL_11712_2025.pdf", code: "https://github.com/weiting-lai" }
+                },
+                {
+                    id: 2,
+                    title: "RAMDC: Room-Aware Multi-Device Clustering for Large Scale Teleconferencing",
+                    authors: "Yile (Angela) Zhang*, Wei-Ting Lai*, Amy Bastine*, Xingyu Chen, Lachlan I. Birnie, Thushara D. Abhayapala, Prasanga N. Samarasinghe",
+                    venue: "APSIPA ASC, 2025",
+                    status: "Published",
+                    links: { pdf: "assets/RAMDC_Paper.pdf", code: null }
+                },
+                {
+                    id: 3,
+                    title: "Three-Dimensional Gradient-Based Tracking of Multiple Sound Sources",
+                    authors: "Shaoheng Xu, Wei-Ting Lai, Yile Zhang, et al.",
+                    venue: "APSIPA ASC, 2025",
+                    status: "Published",
+                    links: { pdf: null, code: null }
+                },
+                {
+                    id: 4,
+                    title: "Source Localization by Multidimensional Steered Response Power Mapping with Sparse Bayesian Learning",
+                    authors: "Wei-Ting Lai, Lachlan Birnie, Xingyu Chen, Amy Bastine, Thushara D. Abhayapala, Prasanga N. Samarasinghe",
+                    venue: "IWAENC, 2024",
+                    status: "Published",
+                    links: { pdf: "assets/lai.pdf", code: null }
+                },
+                {
+                    id: 5,
+                    title: "A Two-Step Approach for Narrowband Source Localization in Reverberant Rooms",
+                    authors: "Wei-Ting Lai, Lachlan Birnie, Thushara Abhayapala, Amy Bastine, Shaoheng Xu, Prasanga Samarasinghe",
+                    venue: "IEEE ICASSP Workshops, 2024",
+                    status: "Published",
+                    links: { pdf: "assets/lai_1.pdf", code: null }
+                },
+                {
+                    id: 6,
+                    title: "Sparse Sound Field Representation Using Complex Orthogonal Matching Pursuit",
+                    authors: "Shaoheng Xu, Jian A. Zhang, Thushara D. Abhayapala, Amy Bastine, Wei-Ting Lai, Prasanga N. Samarasinghe",
+                    venue: "IEEE ICASSP, 2024",
+                    status: "Published",
+                    links: { pdf: null, code: null }
+                }
+            ],
+            // Demo Projects (Upcoming)
+            demos: [
+                {
+                    id: "d1",
+                    title: "Interactive 3D Sound Field Visualizer",
+                    description: "A web-based tool to visualize sound pressure distribution in reverberant rooms. (Work in Progress)",
+                    image: "https://placehold.co/600x400/A0C3D2/2D4059?text=Demo+Preview", // Replace with actual screenshot later
+                    link: "#",
+                    isUpcoming: true
+                },
+                {
+                    id: "d2",
+                    title: "Real-time Source Localizer",
+                    description: "Browser-based implementation of the MD-OMP algorithm using microphone input.",
+                    image: "https://placehold.co/600x400/E8F3D6/4F6F52?text=Algorithm+UI",
+                    link: "#",
+                    isUpcoming: true
+                }
+            ],
+            // Blog / Research Updates (Twitter Style)
+            blog: [
+                {
+                    id: 1,
+                    date: "Nov 20, 2025",
+                    content: "Just presented my latest paper on RAMDC at APSIPA! It was amazing to discuss room-aware clustering with the community. 🎤✨ #SpatialAudio #Research",
+                    image: null, 
+                    likes: 24
+                },
+                {
+                    id: 2,
+                    date: "Oct 15, 2025",
+                    content: "Working late in the lab on the new demo for 3D localization. The visualization results are finally looking promising. Can't wait to share the interactive UI soon!",
+                    image: "https://placehold.co/600x300/2D4059/F7F9F9?text=Lab+Result+Snapshot",
+                    likes: 45
+                },
+                {
+                    id: 3,
+                    date: "Sep 01, 2025",
+                    content: "Excited to start my final year of PhD at ANU. The campus is beautiful this time of year. Time to focus on writing that thesis! 📚",
+                    image: null,
+                    likes: 12
+                }
+            ]
+        };
+
+        /*************************************************************
+         * VISUAL EFFECTS (CANVAS)
+         *************************************************************/
+        const AudioVisualizer = () => {
+            const canvasRef = React.useRef(null);
+
+            React.useEffect(() => {
+                const canvas = canvasRef.current;
+                const ctx = canvas.getContext('2d');
+                let width = window.innerWidth;
+                let height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+
+                let particles = [];
+                const particleCount = 40; // Ghibli "Dust Bunny" or Spirit vibe
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                        this.vx = (Math.random() - 0.5) * 0.5;
+                        this.vy = (Math.random() - 0.5) * 0.5;
+                        this.size = Math.random() * 3 + 1;
+                        this.color = Math.random() > 0.5 ? 'rgba(160, 195, 210, 0.3)' : 'rgba(79, 111, 82, 0.2)'; // Sky or Forest
+                    }
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        if (this.x < 0 || this.x > width) this.vx *= -1;
+                        if (this.y < 0 || this.y > height) this.vy *= -1;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.fill();
+                    }
+                }
+
+                for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+
+                // Wave parameters
+                let time = 0;
+
+                const animate = () => {
+                    ctx.clearRect(0, 0, width, height);
+                    
+                    // Draw Particles
+                    particles.forEach(p => {
+                        p.update();
+                        p.draw();
+                    });
+
+                    // Draw Sine Waves (Representing Audio/Wind)
+                    ctx.beginPath();
+                    for (let i = 0; i < width; i++) {
+                        const y = height / 2 + Math.sin(i * 0.005 + time) * 50 + Math.sin(i * 0.01 + time * 0.5) * 20;
+                        ctx.lineTo(i, y);
+                    }
+                    ctx.strokeStyle = 'rgba(45, 64, 89, 0.05)'; // Very subtle
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    // Second wave
+                    ctx.beginPath();
+                    for (let i = 0; i < width; i++) {
+                        const y = height / 1.8 + Math.sin(i * 0.008 - time) * 40;
+                        ctx.lineTo(i, y);
+                    }
+                    ctx.strokeStyle = 'rgba(79, 111, 82, 0.05)';
+                    ctx.stroke();
+
+                    time += 0.01;
+                    requestAnimationFrame(animate);
+                };
+
+                animate();
+
+                const handleResize = () => {
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                    canvas.width = width;
+                    canvas.height = height;
+                };
+                window.addEventListener('resize', handleResize);
+                return () => window.removeEventListener('resize', handleResize);
+            }, []);
+
+            return <canvas ref={canvasRef} className="audio-wave" />;
+        };
+
+        /*************************************************************
+         * COMPONENTS
+         *************************************************************/
+        
+        const Nav = ({ activeTab, setActiveTab }) => {
+            const tabs = [
+                { id: 'home', label: 'Home', icon: 'fa-house' },
+                { id: 'research', label: 'Research', icon: 'fa-book-open' },
+                { id: 'demos', label: 'Demos', icon: 'fa-gamepad' },
+                { id: 'blog', label: 'Updates', icon: 'fa-feather' }
+            ];
+
+            return (
+                <nav className="sticky top-4 z-50 flex justify-center w-full px-4 mb-8">
+                    <div className="glass-card rounded-full px-6 py-3 flex space-x-6 md:space-x-8 shadow-lg">
+                        {tabs.map(tab => (
+                            <button
+                                key={tab.id}
+                                onClick={() => setActiveTab(tab.id)}
+                                className={`flex items-center space-x-2 transition-all duration-300 ${
+                                    activeTab === tab.id 
+                                    ? 'text-ghibli-forest font-bold scale-105' 
+                                    : 'text-gray-500 hover:text-ghibli-sky'
+                                }`}
+                            >
+                                <i className={`fa-solid ${tab.icon}`}></i>
+                                <span className="hidden md:inline font-sans">{tab.label}</span>
+                            </button>
+                        ))}
+                    </div>
+                </nav>
+            );
+        };
+
+        const Hero = ({ profile }) => (
+            <div className="flex flex-col md:flex-row items-center justify-center gap-10 min-h-[70vh] animate-float">
+                <div className="relative group">
+                    <div className="absolute inset-0 bg-ghibli-sky rounded-full blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
+                    <img 
+                        src={profile.avatar} 
+                        alt={profile.name} 
+                        className="relative w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-ghibli-cloud shadow-xl"
+                        onError={(e) => {e.target.src='https://placehold.co/300x300/A0C3D2/ffffff?text=WL'}} 
+                    />
+                </div>
+                <div className="max-w-xl text-center md:text-left">
+                    <h1 className="text-4xl md:text-6xl font-display text-ghibli-night mb-2">{profile.name}</h1>
+                    <h2 className="text-lg md:text-xl text-ghibli-forest font-serif italic mb-4">{profile.title}</h2>
+                    <p className="text-gray-600 font-sans leading-relaxed mb-6">
+                        {profile.bio}
+                    </p>
+                    
+                    <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-6">
+                        {profile.interests.map((tag, i) => (
+                            <span key={i} className="px-3 py-1 bg-ghibli-grass text-ghibli-forest rounded-full text-sm font-semibold shadow-sm">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+
+                    <div className="flex justify-center md:justify-start gap-4">
+                        <a href={profile.links.github} target="_blank" className="w-10 h-10 rounded-full bg-gray-800 text-white flex items-center justify-center hover:scale-110 transition-transform"><i className="fa-brands fa-github"></i></a>
+                        <a href={profile.links.linkedin} target="_blank" className="w-10 h-10 rounded-full bg-blue-700 text-white flex items-center justify-center hover:scale-110 transition-transform"><i className="fa-brands fa-linkedin-in"></i></a>
+                        <a href={profile.links.scholar} target="_blank" className="w-10 h-10 rounded-full bg-white text-blue-600 border border-blue-600 flex items-center justify-center hover:scale-110 transition-transform"><i className="fa-solid fa-graduation-cap"></i></a>
+                        <a href={profile.links.cv} target="_blank" className="px-4 h-10 rounded-full bg-ghibli-magic text-white flex items-center justify-center font-bold hover:bg-red-600 transition-colors shadow-md">
+                            CV &nbsp; <i className="fa-solid fa-file-pdf"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const PublicationCard = ({ pub }) => (
+            <div className="glass-card p-6 rounded-xl mb-6 hover:shadow-xl transition-all duration-300 border-l-4 border-ghibli-sky group">
+                <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                        <h3 className="text-xl font-serif font-bold text-ghibli-night mb-2 group-hover:text-blue-600 transition-colors">
+                            {pub.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 mb-2 font-sans italic">{pub.authors}</p>
+                        <div className="flex items-center gap-2 mb-4">
+                            <span className="text-xs px-2 py-1 bg-ghibli-night text-white rounded">{pub.venue}</span>
+                            <span className="text-xs px-2 py-1 bg-green-100 text-green-800 rounded border border-green-200">{pub.status}</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-2 ml-4">
+                         {pub.links.pdf && (
+                             <a href={pub.links.pdf} target="_blank" className="text-ghibli-night hover:text-red-500 transition-colors" title="Download PDF">
+                                <i className="fa-regular fa-file-pdf fa-lg"></i>
+                             </a>
+                         )}
+                         {pub.links.code && (
+                             <a href={pub.links.code} target="_blank" className="text-ghibli-night hover:text-black transition-colors" title="View Code">
+                                <i className="fa-brands fa-github fa-lg"></i>
+                             </a>
+                         )}
+                    </div>
+                </div>
+            </div>
+        );
+
+        const ResearchSection = ({ publications }) => (
+            <div className="max-w-4xl mx-auto animate-fade-in">
+                <h2 className="text-3xl font-display text-center text-ghibli-night mb-10 relative">
+                    <span className="relative z-10">Publications</span>
+                    <span className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-24 h-3 bg-ghibli-grass -z-0 opacity-60"></span>
+                </h2>
+                <div>
+                    {publications.map(pub => <PublicationCard key={pub.id} pub={pub} />)}
+                </div>
+            </div>
+        );
+
+        const DemoCard = ({ demo }) => (
+            <div className="glass-card rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-500">
+                <div className="relative h-48 overflow-hidden">
+                    <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-10 transition-all z-10"></div>
+                    {demo.isUpcoming && (
+                        <div className="absolute top-4 right-4 z-20 bg-ghibli-magic text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg animate-pulse">
+                            UPCOMING
+                        </div>
+                    )}
+                    <img src={demo.image} alt={demo.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                </div>
+                <div className="p-6">
+                    <h3 className="text-xl font-serif font-bold text-ghibli-night mb-2">{demo.title}</h3>
+                    <p className="text-gray-600 text-sm mb-4 h-12">{demo.description}</p>
+                    <div className="flex items-center justify-between">
+                         <span className="text-xs font-mono text-gray-400">Interactive Web Module</span>
+                         <a href={demo.isUpcoming ? "javascript:void(0)" : demo.link} className={`px-4 py-2 rounded-lg text-sm font-bold transition-colors ${demo.isUpcoming ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-ghibli-night text-white hover:bg-blue-800'}`}>
+                            {demo.isUpcoming ? "Developing..." : "Try Demo"}
+                         </a>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const DemosSection = ({ demos }) => (
+            <div className="max-w-5xl mx-auto">
+                <h2 className="text-3xl font-display text-center text-ghibli-night mb-4">Interactive Demos</h2>
+                <p className="text-center text-gray-500 mb-12">Integrating Audio Signal Processing with Web Technologies</p>
+                <div className="grid md:grid-cols-2 gap-8">
+                    {demos.map(demo => <DemoCard key={demo.id} demo={demo} />)}
+                </div>
+            </div>
+        );
+
+        const BlogPost = ({ post, authorName, avatar }) => (
+            <div className="glass-card p-5 rounded-xl mb-6 hover:bg-white transition-colors border border-gray-100">
+                <div className="flex gap-4">
+                    <img src={avatar} alt="Author" className="w-12 h-12 rounded-full border border-gray-200" />
+                    <div className="flex-1">
+                        <div className="flex items-baseline gap-2 mb-1">
+                            <span className="font-bold text-ghibli-night font-sans">{authorName}</span>
+                            <span className="text-xs text-gray-400">@{authorName.replace(/\s+/g, '').toLowerCase()}</span>
+                            <span className="text-xs text-gray-400 mx-1">·</span>
+                            <span className="text-xs text-gray-500 hover:underline cursor-pointer">{post.date}</span>
+                        </div>
+                        <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap mb-3 font-sans">{post.content}</p>
+                        {post.image && (
+                            <div className="rounded-xl overflow-hidden border border-gray-200 mb-3">
+                                <img src={post.image} alt="Post content" className="w-full h-auto" />
+                            </div>
+                        )}
+                        <div className="flex gap-6 text-gray-400 text-sm">
+                            <button className="hover:text-red-500 transition-colors flex items-center gap-1 group">
+                                <i className="fa-regular fa-heart group-hover:animate-bounce"></i> {post.likes}
+                            </button>
+                            <button className="hover:text-blue-500 transition-colors">
+                                <i className="fa-regular fa-comment"></i>
+                            </button>
+                            <button className="hover:text-green-500 transition-colors">
+                                <i className="fa-solid fa-retweet"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const BlogSection = ({ posts, profile }) => (
+            <div className="max-w-2xl mx-auto">
+                 <h2 className="text-3xl font-display text-center text-ghibli-night mb-10">Research Log</h2>
+                 <div className="relative border-l border-gray-200 ml-6 pl-6 space-y-8">
+                    {posts.map(post => (
+                        <div key={post.id} className="relative">
+                            <span className="absolute -left-[31px] top-6 w-4 h-4 rounded-full bg-ghibli-sky border-4 border-white shadow-sm"></span>
+                            <BlogPost post={post} authorName={profile.name} avatar={profile.avatar} />
+                        </div>
+                    ))}
+                 </div>
+            </div>
+        );
+
+        const Footer = () => (
+            <footer className="mt-20 py-8 text-center text-gray-400 text-sm font-sans border-t border-gray-200">
+                <p>© {new Date().getFullYear()} Wei-Ting Lai. All Rights Reserved.</p>
+                <p className="mt-2">Designed with <i className="fa-solid fa-heart text-ghibli-magic mx-1"></i> and 3D Audio</p>
+            </footer>
+        );
+
+        const App = () => {
+            const [activeTab, setActiveTab] = React.useState('home');
+
+            const renderContent = () => {
+                switch(activeTab) {
+                    case 'home': return <Hero profile={DATA.profile} />;
+                    case 'research': return <ResearchSection publications={DATA.publications} />;
+                    case 'demos': return <DemosSection demos={DATA.demos} />;
+                    case 'blog': return <BlogSection posts={DATA.blog} profile={DATA.profile} />;
+                    default: return <Hero profile={DATA.profile} />;
+                }
+            };
+
+            return (
+                <div className="min-h-screen relative p-4 md:p-8">
+                    <AudioVisualizer />
+                    <div className="max-w-6xl mx-auto relative z-10">
+                        <Nav activeTab={activeTab} setActiveTab={setActiveTab} />
+                        <main className="min-h-[60vh] animate-fade-in transition-all duration-500">
+                            {renderContent()}
+                        </main>
+                        <Footer />
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
