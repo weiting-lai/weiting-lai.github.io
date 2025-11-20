@@ -185,7 +185,7 @@
             blog: [
                 {
                     id: 1,
-                    date: "Nov 23, 2025",
+                    date: "Oct 23, 2025",
                     content: "Just presented my latest paper on RAMDC at APSIPA! It was amazing to discuss room-aware clustering with the community. 🎤✨ #APSIPA",
                     image: null, 
                     likes: 24
@@ -496,13 +496,15 @@
         const App = () => {
             const [activeTab, setActiveTab] = React.useState('home');
 
+            const sortedBlogPosts = React.useMemo(() => {return [...DATA.blog].sort((a, b) => b.id - a.id);}, [DATA.blog]);
+
             const renderContent = () => {
                 switch(activeTab) {
                     case 'home': return <Hero profile={DATA.profile} />;
                     case 'research': return <ResearchSection publications={DATA.publications} />;
                     case 'demos': return <DemosSection demos={DATA.demos} />;
-                    case 'blog': return <BlogSection posts={DATA.blog} profile={DATA.profile} />;
-                    default: return <Hero profile={DATA.profile} />;
+                    case 'blog': return <BlogSection posts={sortedBlogPosts} profile={DATA.profile} />;
+            default: return <Hero profile={DATA.profile} />;
                 }
             };
 
