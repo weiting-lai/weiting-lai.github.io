@@ -447,44 +447,73 @@
             </div>
         );
 
-        const BlogPost = ({ post, authorName, avatar }) => (
-            <div className="glass-card p-5 rounded-xl mb-6 hover:bg-white transition-colors border border-gray-100">
-                <div className="flex gap-4">
-                    <img src={avatar} alt="Author" className="w-12 h-12 rounded-full border border-gray-200" />
-                    <div className="flex-1">
-                        <div className="flex items-baseline gap-2 mb-1">
-                            <span className="font-bold text-ghibli-night font-sans">{authorName}</span>
-                            <span className="text-xs text-gray-400">@weiting4u</span>
-                            <span className="text-xs text-gray-400 mx-1">·</span>
-                            <span className="text-xs text-gray-500 hover:underline cursor-pointer">{post.date}</span>
-                        </div>
-                        <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap mb-3 font-sans">{post.content}</p>
-                        {post.image && (
-                            <div className="rounded-xl overflow-hidden border border-gray-200 mb-3">
-                                <img src={post.image} alt="Post content" className="w-full h-auto" />
-                            </div>
-                        )}
-                        <div className="flex items-center gap-6 text-gray-400 text-sm">
-                            <button className="hover:text-red-500 transition-colors flex items-center gap-1 group">
-                                <i className="fa-regular fa-heart group-hover:animate-bounce"></i> {post.likes}
-                            </button>
-                            <button className="hover:text-blue-500 transition-colors">
-                                <i className="fa-regular fa-comment"></i>
-                            </button>
-                            <button className="hover:text-green-500 transition-colors">
-                                <i className="fa-solid fa-retweet"></i>
-                            </button>
+        const BlogPost = ({ post, authorName, avatar }) => {
+            // 1. State for current like count (initialized with post.likes)
+            const [likeCount, setLikeCount] = React.useState(post.likes);
+            // 2. State to track if the current user has liked the post
+            const [isLiked, setIsLiked] = React.useState(false);
 
-                            {post.link && (
-                                <a href={post.link} target="_blank" className="ml-auto text-ghibli-night hover:text-ghibli-magic font-bold transition-colors flex items-center gap-1">
-                                    Read Paper <i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                                </a>
+            // 3. Handle like/unlike click event
+            const handleLike = () => {
+                if (isLiked) {
+                    // If already liked, unlike (decrement count)
+                    setLikeCount(likeCount - 1);
+                    setIsLiked(false);
+                } else {
+                    // If not liked, like it (increment count)
+                    setLikeCount(likeCount + 1);
+                    setIsLiked(true);
+                }
+            };
+
+            return (
+                <div className="glass-card p-5 rounded-xl mb-6 hover:bg-white transition-colors border border-gray-100">
+                    <div className="flex gap-4">
+                        <img src={avatar} alt="Author" className="w-12 h-12 rounded-full border border-gray-200" />
+                        <div className="flex-1">
+                            <div className="flex items-baseline gap-2 mb-1">
+                                <span className="font-bold text-ghibli-night font-sans">{authorName}</span>
+                                <span className="text-xs text-gray-400">@weiting4u</span>
+                                <span className="text-xs text-gray-400 mx-1">·</span>
+                                <span className="text-xs text-gray-500 hover:underline cursor-pointer">{post.date}</span>
+                            </div>
+                            <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap mb-3 font-sans">{post.content}</p>
+                            {post.image && (
+                                <div className="rounded-xl overflow-hidden border border-gray-200 mb-3">
+                                    <img src={post.image} alt="Post content" className="w-full h-auto" />
+                                </div>
                             )}
+                            
+                            <div className="flex items-center gap-6 text-gray-400 text-sm">
+                                {/* 👇 Like Button Logic */}
+                                <button 
+                                    onClick={handleLike} 
+                                    className={`transition-colors flex items-center gap-1 group ${isLiked ? "text-red-500" : "hover:text-red-500"}`}
+                                >
+                                    {/* Toggle icon: solid (fa-solid) if liked, regular (fa-regular) otherwise */}
+                                    <i className={`${isLiked ? "fa-solid" : "fa-regular"} fa-heart ${isLiked ? "" : "group-hover:animate-bounce"}`}></i> 
+                                    {likeCount}
+                                </button>
+                                {/* 👆 Like Button Logic End */}
+
+                                <button className="hover:text-blue-500 transition-colors">
+                                    <i className="fa-regular fa-comment"></i>
+                                </button>
+                                <button className="hover:text-green-500 transition-colors">
+                                    <i className="fa-solid fa-retweet"></i>
+                                </button>
+
+                                {post.link && (
+                                    <a href={post.link} target="_blank" className="ml-auto text-ghibli-night hover:text-ghibli-magic font-bold transition-colors flex items-center gap-1">
+                                        Read Paper <i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                                    </a>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        };
 
         const BlogSection = ({ posts, profile }) => (
             <div className="max-w-2xl mx-auto">
