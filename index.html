@@ -395,8 +395,10 @@
                     </div>
                     <div className="flex flex-col gap-2 ml-4">
                          {pub.links.doi && (
-                             <a href={pub.links.doi} target="_blank" rel="noreferrer" className="text-ghibli-night hover:text-blue-600 transition-colors" title="View DOI Record">
-                                <i className="fa-solid fa-book-bookmark fa-xl"></i>
+                             <a href={pub.links.doi} target="_blank" rel="noreferrer" className="no-underline" title="View DOI Record">
+                                <span className="font-serif font-bold text-xs border border-ghibli-night text-ghibli-night px-2 py-1 rounded hover:bg-ghibli-night hover:text-white transition-colors cursor-pointer">
+                                    DOI
+                                </span>
                              </a>
                          )}
                          {pub.links.code && (
