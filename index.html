@@ -114,6 +114,14 @@
             // Publications from your CV
             publications: [
                 {
+                    id: 8,
+                    title: "An Efficient Parametric Codec for Low-Bitrate First-Order Ambisonics",
+                    authors: "Wei-Ting Lai, Amy Bastine, Lachlan Birnie, Thushara D. Abhayapala, Prasanga N. Samarasinghe",
+                    venue: "arXiv:2609.33554, 2026",
+                    status: "Preprint",
+                    links: { arxiv: "https://arxiv.org/abs/2609.33554", demo: "https://weiting-lai.github.io/MetaFOA/" }
+                },
+                {
                     id: 1,
                     title: "Sound Source Localization using Multi-Dictionary Orthogonal Matching Pursuit in Reverberant Environments",
                     authors: "Wei-Ting Lai, Lachlan I. Birnie, Thushara D. Abhayapala, Amy Bastine, Prasanga N. Samarasinghe",
@@ -170,23 +178,16 @@
                     links: { doi: "https://doi.org/10.1109/ICASSP48485.2024.10445940", code: null }
                 }
             ],
-            // Demo Projects (Upcoming)
+            // Available interactive demos
             demos: [
                 {
-                    id: "d1",
-                    title: "Room Cluster",
-                    description: "A web-based tool to visualize room-aware multi-device clustering. (Work in Progress)",
-                    image: "https://placehold.co/600x400/A0C3D2/2D4059?text=Demo+Preview", // Replace with actual screenshot later
-                    link: "#",
-                    isUpcoming: true
-                },
-                {
-                    id: "d2",
-                    title: "Source Localizer",
-                    description: "Browser-based implementation of the MD-OMP algorithm using microphone input.",
-                    image: "https://placehold.co/600x400/E8F3D6/4F6F52?text=Algorithm+UI",
-                    link: "#",
-                    isUpcoming: true
+                    id: "metafoa",
+                    title: "MetaFOA",
+                    description: "Explore 360° first-order Ambisonics with just 0.75 kbps of spatial metadata, paired with a pretrained monaural codec. Compare original and reconstructed audio while changing your listening direction.",
+                    image: "assets/metafoa-codec.svg",
+                    imageAlt: "MetaFOA codec overview: FOA input is encoded as monaural audio and 0.75 kbps spatial metadata, then reconstructed for 360-degree listening.",
+                    link: "https://weiting-lai.github.io/MetaFOA/",
+                    paper: "https://arxiv.org/abs/2609.33554"
                 }
             ],
             // Blog / Research Updates (Twitter Style)
@@ -327,6 +328,8 @@
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
+                                aria-label={tab.label}
+                                aria-pressed={activeTab === tab.id}
                                 className={`flex items-center space-x-2 transition-all duration-300 ${
                                     activeTab === tab.id 
                                     ? 'text-ghibli-forest font-bold scale-105' 
@@ -394,6 +397,16 @@
                         </div>
                     </div>
                     <div className="flex flex-col gap-2 ml-4">
+                         {pub.links.arxiv && (
+                             <a href={pub.links.arxiv} target="_blank" rel="noopener noreferrer" className="font-sans font-bold text-sm text-ghibli-night hover:text-ghibli-magic transition-colors" title="Read the arXiv preprint">
+                                arXiv
+                             </a>
+                         )}
+                         {pub.links.demo && (
+                             <a href={pub.links.demo} target="_blank" rel="noopener noreferrer" className="font-sans font-bold text-sm text-ghibli-forest hover:text-ghibli-night transition-colors" title="Open the interactive MetaFOA demo">
+                                Demo
+                             </a>
+                         )}
                          {pub.links.doi && (
                              <a href={pub.links.doi} target="_blank" rel="noreferrer" className="no-underline" title="View DOI Record">
                                 <span className="font-sans font-bold text-base text-ghibli-night hover:text-ghibli-magic transition-colors">
@@ -424,34 +437,35 @@
         );
 
         const DemoCard = ({ demo }) => (
-            <div className="glass-card rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-500">
-                <div className="relative h-48 overflow-hidden">
-                    <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-10 transition-all z-10"></div>
-                    {demo.isUpcoming && (
-                        <div className="absolute top-4 right-4 z-20 bg-ghibli-magic text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg animate-pulse">
-                            UPCOMING
-                        </div>
-                    )}
-                    <img src={demo.image} alt={demo.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+            <article data-demo={demo.id} className="glass-card rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-500 grid md:grid-cols-2">
+                <div className="flex items-center justify-center bg-ghibli-grass bg-opacity-30 p-4 md:p-5">
+                    <img src={demo.image} alt={demo.imageAlt} width="1000" height="660" className="w-full h-auto" />
                 </div>
-                <div className="p-6">
-                    <h3 className="text-xl font-serif font-bold text-ghibli-night mb-2">{demo.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4 h-12">{demo.description}</p>
-                    <div className="flex items-center justify-between">
-                         <span className="text-xs font-mono text-gray-400">Interactive Web Module</span>
-                         <a href={demo.isUpcoming ? "javascript:void(0)" : demo.link} className={`px-4 py-2 rounded-lg text-sm font-bold transition-colors ${demo.isUpcoming ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-ghibli-night text-white hover:bg-blue-800'}`}>
-                            {demo.isUpcoming ? "Developing..." : "Try Demo"}
-                         </a>
+                <div className="p-6 md:p-8 flex flex-col justify-center">
+                    <span className="text-xs font-bold tracking-widest uppercase text-ghibli-forest mb-3">Spatial audio codec</span>
+                    <h3 className="text-3xl font-serif font-bold text-ghibli-night mb-4">{demo.title}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed mb-5">{demo.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-6">
+                        <span className="text-xs px-3 py-1 bg-ghibli-grass text-ghibli-forest rounded-full">0.75 kbps spatial metadata</span>
+                        <span className="text-xs px-3 py-1 bg-blue-50 text-ghibli-night rounded-full">Interactive 360° listening</span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-4">
+                        <a href={demo.link} target="_blank" rel="noopener noreferrer" className="px-5 py-3 rounded-lg text-sm font-bold bg-ghibli-night text-white hover:bg-blue-800 transition-colors">
+                            Try MetaFOA <i className="fa-solid fa-arrow-up-right-from-square ml-2 text-xs" aria-hidden="true"></i>
+                        </a>
+                        <a href={demo.paper} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-ghibli-forest hover:underline">
+                            Read the paper <i className="fa-solid fa-arrow-up-right-from-square ml-1 text-xs" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
-            </div>
+            </article>
         );
 
         const DemosSection = ({ demos }) => (
             <div className="max-w-5xl mx-auto">
                 <h2 className="text-3xl font-display text-center text-ghibli-night mb-4">Interactive Demos</h2>
-                <p className="text-center text-gray-500 mb-12">Integrating Audio Signal Processing with Web Technologies</p>
-                <div className="grid md:grid-cols-2 gap-8">
+                <p className="text-center text-gray-500 mb-10">Explore spatial audio research through interactive listening.</p>
+                <div className="max-w-4xl mx-auto">
                     {demos.map(demo => <DemoCard key={demo.id} demo={demo} />)}
                 </div>
             </div>
