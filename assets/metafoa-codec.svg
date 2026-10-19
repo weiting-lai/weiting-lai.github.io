@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="660" viewBox="0 0 1000 660" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="400" viewBox="0 200 1000 400" role="img" aria-labelledby="title description">
   <title id="title">MetaFOA: a compact path to 360-degree audio</title>
-  <desc id="description">A first-order Ambisonic sound field splits into a monaural audio codec and MetaFOA spatial metadata at 0.75 kbps. Both streams are combined to reconstruct the sound field for spatial listening.</desc>
+  <desc id="description">A sound field is represented as audio and spatial information, then combined for 360-degree listening.</desc>
   <defs>
     <linearGradient id="paper" x2="1" y2="1">
       <stop stop-color="#FDFBF7"/>
@@ -14,14 +14,10 @@
       <path d="M1 1 8 5 1 9" fill="none" stroke="#7A949A" stroke-width="1.5" stroke-linejoin="round"/>
     </marker>
   </defs>
-  <rect width="1000" height="660" rx="36" fill="url(#paper)"/>
-  <circle cx="895" cy="70" r="125" fill="#E4EFD9" opacity=".65"/>
+  <rect y="200" width="1000" height="400" rx="36" fill="url(#paper)"/>
+  <circle cx="895" cy="205" r="125" fill="#E4EFD9" opacity=".65"/>
   <circle cx="35" cy="615" r="145" fill="#DCEBF0" opacity=".55"/>
   <g font-family="Arial, sans-serif" fill="#2D4059">
-    <text x="60" y="76" font-size="19" letter-spacing="4" fill="#4F6F52">SMALL STREAM. SPATIAL SOUND.</text>
-    <text x="58" y="138" font-size="48" font-weight="700">The MetaFOA codec</text>
-    <text x="60" y="177" font-size="23" fill="#627478">Audio and space, represented separately.</text>
-
     <g fill="none" stroke="#7A949A" stroke-width="3" marker-end="url(#arrow)">
       <path d="M285 350H320V295H362"/>
       <path d="M320 350V460H362"/>
@@ -43,18 +39,13 @@
       <circle cx="-80" cy="-67" r="7" fill="#EA5455"/>
       <circle cx="89" cy="42" r="6" fill="#6D94A8"/>
     </g>
-    <text x="176" y="500" text-anchor="middle" font-size="26" font-weight="700">FOA input</text>
-    <text x="176" y="535" text-anchor="middle" font-size="21" fill="#627478">W · Y · Z · X</text>
+    <text x="176" y="500" text-anchor="middle" font-size="32" font-weight="700">Sound field</text>
 
     <rect x="367" y="235" width="268" height="125" rx="22" fill="#E1EEF3" stroke="#B7D0DC" stroke-width="2"/>
-    <text x="395" y="270" font-size="16" letter-spacing="3" fill="#52788A">AUDIO</text>
-    <text x="395" y="307" font-size="27" font-weight="700">Monaural codec</text>
-    <text x="395" y="337" font-size="20" fill="#52788A">EnCodec / DAC</text>
+    <text x="501" y="309" text-anchor="middle" font-size="32" font-weight="700">Audio codec</text>
 
     <rect x="367" y="395" width="268" height="130" rx="22" fill="#E8F3D6" stroke="#BFD0A8" stroke-width="2"/>
-    <text x="395" y="430" font-size="16" letter-spacing="3" fill="#4F6F52">SPACE</text>
-    <text x="395" y="468" font-size="29" font-weight="700">MetaFOA</text>
-    <text x="395" y="500" font-size="21" fill="#4F6F52">0.75 kbps metadata</text>
+    <text x="501" y="471" text-anchor="middle" font-size="34" font-weight="700">MetaFOA</text>
 
     <g transform="translate(829 350)">
       <circle r="94" fill="#FDFBF7" stroke="#C5D9D8" stroke-width="2"/>
@@ -66,11 +57,6 @@
       <path d="M-23 3V-8A23 23 0 0 1 23-8V3C23 28 12 41 0 41S-23 28-23 3Z" fill="#E8F3D6" stroke="#91A590" stroke-width="2"/>
       <circle cx="82" cy="-65" r="7" fill="#EA5455"/>
     </g>
-    <text x="829" y="500" text-anchor="middle" font-size="26" font-weight="700">360° listening</text>
-    <text x="829" y="535" text-anchor="middle" font-size="21" fill="#627478">Reconstructed FOA</text>
-
-    <path d="M60 582H940" stroke="#D6E2D1" stroke-width="1.5"/>
-    <text x="60" y="621" font-size="19" fill="#627478">Parametric spatial audio · Modular monaural backbone</text>
-    <circle cx="932" cy="613" r="5" fill="#4F6F52"/>
+    <text x="829" y="500" text-anchor="middle" font-size="32" font-weight="700">360° listening</text>
   </g>
 </svg>
